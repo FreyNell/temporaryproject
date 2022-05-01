@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Dientes,Perfiles,Pacientes,TipoDocumento,TipoPerfil,PacientesDientes,Codificaciones,TipoCodificacion
+
+admin.site.register(Dientes)
+admin.site.register(Perfiles)
+admin.site.register(Pacientes)
+admin.site.register(TipoDocumento)
+admin.site.register(TipoPerfil)
+admin.site.register(PacientesDientes)
+admin.site.register(Codificaciones)
+admin.site.register(TipoCodificacion)

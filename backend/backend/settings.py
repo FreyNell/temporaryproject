@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'usuario.apps.UsuarioConfig',
     'odontologia.apps.OdontologiaConfig',
     'django.contrib.admin',
     'django.contrib.auth',

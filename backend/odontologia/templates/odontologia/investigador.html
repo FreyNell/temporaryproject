@@ -1,0 +1,76 @@
+{% extends 'odontologia/base.html' %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    <legend>
+        <h3>Información del Paciente</h3>
+    </legend>
+    <div class="row">
+        <div class="col-md">
+            <label for="n_documento" class="form-label">Número Documento:</label><br>
+            <input class="form-control" type="text" name="n_documento" id="n_documento" value="{{n_documento}}"><br>
+        </div>
+        <div class="col-md">
+            <label for="tipo_documento" class="form-label">Tipo Documento:</label><br>
+            <select id="tipo_documento" name="tipo_documento" class="form-select">
+                {% for tipo in tipos_de_documento %}
+                <option value="{{tipo.id_tipo_documento}}" {% if tipo.nombre_documento_identidad == tipo_documento %}
+                    selected {% endif %}>{{tipo.nombre_documento_identidad}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <label for="primer_nombre" class="form-label">Primer Nombre:</label><br>
+            <input class="form-control" type="text" name="primer_nombre" id="primer_nombre"
+                value="{{primer_nombre}}"><br>
+        </div>
+        <div class="col-md">
+            <label for="segundo_nombre" class="form-label">Segundo Nombre:</label><br>
+            <input class="form-control" type="text" name="segundo_nombre" id="segundo_nombre"
+                value="{{segundo_nombre}}"><br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <label for="primer_apellido" class="form-label">Primer Apellido:</label><br>
+            <input class="form-control" type="text" name="primer_apellido" id="primer_apellido"
+                value="{{primer_apellido}}"><br>
+        </div>
+        <div class="col-md">
+            <label for="segundo_apellido" class="form-label">Segundo Apellido:</label><br>
+            <input class="form-control" type="text" name="segundo_apellido" id="segundo_apellido"
+                value="{{segundo_apellido}}"><br>
+        </div>
+    </div>
+    <legend>
+        <h3>Diagnóstico Odontológico</h3>
+    </legend>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                {% for diente_izq in dientes_izquierdos %}
+                <div>
+                    <label for="{{diente_izq.numero_diente}}"
+                        class="form-label">{{diente_izq.numero_diente}}</label><br>
+                    <input class="form-control" type="text" name="{{diente_izq.numero_diente}}"
+                        id="{{diente_izq.numero_diente}}" value=""><br>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md">
+            {% for dientes_der in dientes_derechos %}
+            <div>
+                <label for="{{dientes_der.numero_diente}}" class="form-label">{{dientes_der.numero_diente}}</label><br>
+                <input class="form-control" type="text" name="{{dientes_der.numero_diente}}"
+                    id="{{dientes_der.numero_diente}}" value=""><br>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Guardar">
+</form>
+</div>
+{% endblock %}
