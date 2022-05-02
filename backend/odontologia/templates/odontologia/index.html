@@ -1,6 +1,6 @@
 {% extends 'odontologia/base.html' %}
 {% block content %}
-<form action="/registrarPaciente" class="border p-2" method="post">
+<form novalidate action="/registrarPaciente" class="border p-2" method="post">
 	{% csrf_token %}
 	<legend>
 		<h3>Información del Paciente</h3>
@@ -57,7 +57,7 @@
 					<label for="{{diente_izq.numero_diente}}"
 						class="form-label">{{diente_izq.numero_diente}}</label>
 					<input type="email" class="form-control" list="datalistOptions" id="{{diente_izq.numero_diente}}"
-						name="{{diente_izq.numero_diente}}" multiple>
+						name="{{diente_izq.numero_diente}}" {% if data|get_value:diente_izq.numero_diente != None and data|get_value:diente_izq.numero_diente != ""  %} value="{{data|get_value:diente_izq.numero_diente}}" {% endif %}  multiple>
 				</div>
 				<datalist id="datalistOptions">
 					{% for codificacion in codificaciones %}
@@ -74,7 +74,7 @@
 					<label for="{{dientes_der.numero_diente}}"
 						class="form-label">{{dientes_der.numero_diente}}</label>
 					<input type="email" class="form-control" list="datalistOptions" name="{{dientes_der.numero_diente}}"
-						id="{{dientes_der.numero_diente}}" multiple>
+						id="{{dientes_der.numero_diente}}" {% if data|get_value:dientes_der.numero_diente != None and data|get_value:dientes_der.numero_diente != ""  %} value="{{data|get_value:dientes_der.numero_diente}}" {% endif %} multiple>
 				</div>
 				<datalist id="datalistOptions">
 					{% for codificacion in codificaciones %}
