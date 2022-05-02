@@ -1,5 +1,39 @@
 {% extends 'odontologia/base.html' %}
 {% block content %}
+<form class="border p-2" action="/consultar" method="post">
+	{% csrf_token %}
+	<legend>
+		<h3>Consultar</h3>
+	</legend>
+	<p class="text-danger">{{error_message}}</p>
+	<label for="tipo_consulta" class="form-label">Tipo Consulta:</label><br>
+	<select id="tipo_consulta" name="tipo_consulta" class="form-select">
+		<option value="1">Número de Documento</option>
+		<option value="2">Nombres y Apellidos</option>
+	</select>
+	<div class="row">
+		<div class="col-md">
+			<label for="c_primer_nombre" class="form-label">Primer Nombre:</label><br>
+			<input class="form-control" type="text" name="c_primer_nombre" id="c_primer_nombre" value=""><br>
+		</div>
+		<div class="col-md">
+			<label for="c_primer_apellido" class="form-label">Primer Apellido:</label><br>
+			<input class="form-control" type="text" name="c_primer_apellido" id="c_primer_apellido"
+				value=""><br>
+		</div>
+		<div class="col-md">
+			<label for="c_segundo_apellido" class="form-label">Segundo Apellido:</label><br>
+			<input class="form-control" type="text" name="c_segundo_apellido" id="c_segundo_apellido"
+				value=""><br>
+		</div>
+		<div class="col-md">
+			<label for="c_n_documento" class="form-label">Número Documento:</label><br>
+			<input class="form-control" type="text" name="c_n_documento" id="c_n_documento"
+				value=""><br>
+		</div>
+	</div>
+	<input class="btn btn-primary" type="submit" id="consultar" value="Consultar">
+</form>
 <form novalidate action="/registrarPaciente" class="border p-2" method="post">
 	{% csrf_token %}
 	<legend>

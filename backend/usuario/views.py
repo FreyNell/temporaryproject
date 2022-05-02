@@ -1,5 +1,21 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from odontologia.models import Perfiles, TipoPerfil
+
+class SignUpForm(UserCreationForm):
+    GEEKS_CHOICES =(
+        ("Odontologo", "Odontologo"),
+        ("Investigador", "Investigador"),
+    )
+    username = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class': 'myfieldclass'}))
+    tipo_perfil = forms.ChoiceField(choices = GEEKS_CHOICES)
+
+    class Meta:
+        model = User
+        fields = ('username', 'password1', 'password2', )
 
 def login_view(request):
     if not request.user.is_authenticated:
@@ -19,3 +35,24 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+def registrar(request):
+    if not request.user.is_authenticated:
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            perfil = Perfiles()
+            perfil.usuario = User.objects.get(username=username)
+            print(form.cleaned_data.get('tipo_perfil'))
+            perfil.tipo_perfil = TipoPerfil.objects.get(nombre_perfil=form.cleaned_data.get('tipo_perfil'))
+            perfil.save()
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('/')
+        else:
+            form = SignUpForm()
+        return render(request, 'usuario/registrar.html',{'form': form})
+    else:
+        return redirect('/')

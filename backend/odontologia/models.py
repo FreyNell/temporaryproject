@@ -8,10 +8,6 @@ class TipoPerfil(models.Model):
     def __str__(self):
         return self.nombre_perfil
 
-class Perfiles(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    tipo_perfil = models.ForeignKey(TipoPerfil, on_delete=models.CASCADE)
-
 class TipoDocumento(models.Model):
     id_tipo_documento = models.AutoField(primary_key=True)
     nombre_documento_identidad = models.CharField(max_length=20)
@@ -35,6 +31,10 @@ class Dientes(models.Model):
 
     def __str__(self):
         return str(self.numero_diente) + " " + str(self.numero_secundario) + " " + str(self.lado) + " " + self.orden
+
+class Perfiles(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    tipo_perfil = models.ForeignKey(TipoPerfil, on_delete=models.CASCADE)
 
 class Codificaciones(models.Model):
     id_codificacion = models.AutoField(primary_key=True)
@@ -62,4 +62,49 @@ class PacientesDientes(models.Model):
     id_paciente = models.ForeignKey(Pacientes,on_delete=models.CASCADE)
     id_diente = models.ForeignKey(Dientes, on_delete=models.CASCADE)
     diagnostico = models.ForeignKey(Codificaciones, on_delete=models.CASCADE)
+
+class InformeForense(models.Model):
+    id_informe = models.AutoField(primary_key=True)
+    numero_informe_pericial = models.IntegerField()
+    ciudad = models.CharField(max_length=20,default="")
+    fecha_hora = models.DateTimeField()
+    sexo = models.CharField(max_length=20,default="")
+    autoridad_solicitante = models.CharField(max_length=30,default="")
+    protocolo_necropsia = models.CharField(max_length=200,default="")
+    acta_inspeccion_cadaver = models.CharField(max_length=200,default="")
+    motivo_peritacion = models.CharField(max_length=50,default="")
+    concepto_solicitado = models.CharField(max_length=100,default="")
+    resumen_hechos = models.CharField(max_length=200,default="")
+    ejemplos_estudio = models.CharField(max_length=200,default="")
+    tecnica_empleada = models.CharField(max_length=200,default="")
+    examen_exterior_boca = models.CharField(max_length=200,default="")
+    examen_exterior_menton = models.CharField(max_length=200,default="")
+    examen_exterior_peribucal = models.CharField(max_length=200,default="")
+    examen_interior_mucosa = models.CharField(max_length=200,default="")
+    examen_interior_mucogivinal = models.CharField(max_length=200,default="")
+    examen_interior_frenillos = models.CharField(max_length=200,default="")
+    examen_interior_pisoboca = models.CharField(max_length=200,default="")
+    examen_interior_paladarduro = models.CharField(max_length=200,default="")
+    examen_interior_paladarblando = models.CharField(max_length=200,default="")
+    zona_retromolar = models.CharField(max_length=200,default="")
+    examen_tejidos_periodontales = models.CharField(max_length=200,default="")
+    examen_tejidos_duros_maxilasuperior_forma = models.CharField(max_length=200,default="")
+    examen_tejidos_duros_maxilasuperior_tamano = models.CharField(max_length=200,default="")
+    examen_tejidos_duros_maxilasuperior_hallazgos = models.CharField(max_length=200,default="")
+    examen_tejidos_duros_maxilainferior_forma = models.CharField(max_length=200,default="")
+    examen_tejidos_duros_maxilainferior_tamano = models.CharField(max_length=200,default="")
+    examen_tejidos_duros_maxilainferior_hallazgos = models.CharField(max_length=200,default="")
+    examen_tejidos_duros_maxilainferior_alveolares = models.CharField(max_length=200,default="")
+    perfil_concavo = models.CharField(max_length=200,default="")
+    perfil_recto = models.CharField(max_length=200,default="")
+    perfil_convexo = models.CharField(max_length=200,default="")
+    senales_particulares_odontologicas = models.CharField(max_length=200,default="")
+    valoracion_edad = models.CharField(max_length=200,default="")
+    observaciones = models.CharField(max_length=200,default="")
+    examenes_solicitados = models.CharField(max_length=200,default="")
+    analisis_conclusiones = models.CharField(max_length=200,default="")
+    nombre_perito = models.CharField(max_length=200,default="")
+    profesion_perito = models.CharField(max_length=200,default="")
+    
+    
 
