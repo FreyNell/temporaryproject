@@ -45,7 +45,6 @@ def registrar(request):
             password = form.cleaned_data.get('password1')
             perfil = Perfiles()
             perfil.usuario = User.objects.get(username=username)
-            print(form.cleaned_data.get('tipo_perfil'))
             perfil.tipo_perfil = TipoPerfil.objects.get(nombre_perfil=form.cleaned_data.get('tipo_perfil'))
             perfil.save()
             user = authenticate(username=username, password=password)

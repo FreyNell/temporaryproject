@@ -6,8 +6,48 @@ from django.forms import ModelForm
 class PeritoForm(ModelForm):
     class Meta:
         model = InformeForense
-        fields = ['numero_informe_pericial','ciudad',]
-
+        fields = [
+            'numero_informe_pericial',
+            'ciudad',
+            'fecha_hora',
+            'sexo',
+            'autoridad_solicitante',
+            'protocolo_necropsia',
+            'acta_inspeccion_cadaver',
+            'motivo_peritacion',
+            'concepto_solicitado',
+            'resumen_hechos',
+            'ejemplos_estudio',
+            'tecnica_empleada',
+            'examen_exterior_boca',
+            'examen_exterior_menton',
+            'examen_exterior_peribucal',
+            'examen_interior_mucosa',
+            'examen_interior_mucogivinal',
+            'examen_interior_frenillos',
+            'examen_interior_pisoboca',
+            'examen_interior_paladarduro',
+            'examen_interior_paladarblando',
+            'zona_retromolar',
+            'examen_tejidos_periodontales',
+            'examen_tejidos_duros_maxilasuperior_forma',
+            'examen_tejidos_duros_maxilasuperior_tamano',
+            'examen_tejidos_duros_maxilasuperior_hallazgos',
+            'examen_tejidos_duros_maxilainferior_forma',
+            'examen_tejidos_duros_maxilainferior_tamano',
+            'examen_tejidos_duros_maxilainferior_hallazgos',
+            'examen_tejidos_duros_maxilainferior_alveolares',
+            'perfil_concavo',
+            'perfil_recto',
+            'perfil_convexo',
+            'senales_particulares_odontologicas',
+            'valoracion_edad',
+            'observaciones',
+            'examenes_solicitados',
+            'analisis_conclusiones',
+            'nombre_perito',
+            'profesion_perito',
+        ]
 
 def armar_contexto_base(user):
     if not user.is_authenticated:
@@ -179,12 +219,18 @@ def consultar(request, solo_consultar=False):
         return redirect('/usuario')
 
 def consultar_forense(request):
+    
     if request.user.is_authenticated:
-        form = PeritoForm()
+        form = PeritoForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            form = PeritoForm()
+
         data = {}
-        context['data'] = data
-        context['form'] = form
         context = armar_contexto_base(request.user)
+        context['data'] = data
+        context['form'] = form    
         return render(request,'odontologia/investigador.html',context)
     else:
         return redirect('/usuario')

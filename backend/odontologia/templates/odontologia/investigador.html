@@ -43,6 +43,13 @@
             </div>
         </div>
     </div>
+    <input class="btn btn-primary" type="submit" value="Consultar">
+</form>
+<form method="post">
+    {% csrf_token %}
+    <legend>
+        <h3>Peritaje</h3>
+    </legend>
     <div class="row">
         {% for field in form %}
         <div class="mb-3">
