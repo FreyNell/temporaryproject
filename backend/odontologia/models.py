@@ -62,6 +62,10 @@ class PacientesDientes(models.Model):
     id_paciente = models.ForeignKey(Pacientes,on_delete=models.CASCADE)
     id_diente = models.ForeignKey(Dientes, on_delete=models.CASCADE)
     diagnostico = models.ForeignKey(Codificaciones, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.id_paciente.primer_nombre + " " + self.id_paciente.primer_apellido + " " + str(self.id_diente.numero_diente) + " " + self.diagnostico.acronimo
+        #return str(self.id_paciente_diente) + " " + str(self.id_paciente.id_paciente) + " " + str(self.id_diente.id_diente) + " " + str(self.diagnostico.id_codificacion)
 
 class InformeForense(models.Model):
     id_informe = models.AutoField(primary_key=True)

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Codificaciones, Dientes, Pacientes, PacientesDientes, Perfiles, TipoCodificacion, TipoDocumento, InformeForense
 from django.template.defaulttags import register
-from django.forms import ModelForm
+from django.forms import ModelForm,TextInput
 
 class PeritoForm(ModelForm):
     class Meta:
@@ -48,6 +48,48 @@ class PeritoForm(ModelForm):
             'nombre_perito',
             'profesion_perito',
         ]
+        widgets = {
+            'numero_informe_pericial': TextInput(attrs={'class': 'form-control'}),
+            'ciudad': TextInput(attrs={'class': 'form-control'}),
+            'fecha_hora': TextInput(attrs={'class': 'form-control'}),
+            'sexo': TextInput(attrs={'class': 'form-control'}),
+            'autoridad_solicitante': TextInput(attrs={'class': 'form-control'}),
+            'protocolo_necropsia': TextInput(attrs={'class': 'form-control'}),
+            'acta_inspeccion_cadaver': TextInput(attrs={'class': 'form-control'}),
+            'motivo_peritacion': TextInput(attrs={'class': 'form-control'}),
+            'concepto_solicitado': TextInput(attrs={'class': 'form-control'}),
+            'resumen_hechos': TextInput(attrs={'class': 'form-control'}),
+            'ejemplos_estudio': TextInput(attrs={'class': 'form-control'}),
+            'tecnica_empleada': TextInput(attrs={'class': 'form-control'}),
+            'examen_exterior_boca': TextInput(attrs={'class': 'form-control'}),
+            'examen_exterior_menton': TextInput(attrs={'class': 'form-control'}),
+            'examen_exterior_peribucal': TextInput(attrs={'class': 'form-control'}),
+            'examen_interior_mucosa': TextInput(attrs={'class': 'form-control'}),
+            'examen_interior_mucogivinal': TextInput(attrs={'class': 'form-control'}),
+            'examen_interior_frenillos': TextInput(attrs={'class': 'form-control'}),
+            'examen_interior_pisoboca': TextInput(attrs={'class': 'form-control'}),
+            'examen_interior_paladarduro': TextInput(attrs={'class': 'form-control'}),
+            'examen_interior_paladarblando': TextInput(attrs={'class': 'form-control'}),
+            'zona_retromolar': TextInput(attrs={'class': 'form-control'}),
+            'examen_tejidos_periodontales': TextInput(attrs={'class': 'form-control'}),
+            'examen_tejidos_duros_maxilasuperior_forma': TextInput(attrs={'class': 'form-control'}),
+            'examen_tejidos_duros_maxilasuperior_tamano': TextInput(attrs={'class': 'form-control'}),
+            'examen_tejidos_duros_maxilasuperior_hallazgos': TextInput(attrs={'class': 'form-control'}),
+            'examen_tejidos_duros_maxilainferior_forma': TextInput(attrs={'class': 'form-control'}),
+            'examen_tejidos_duros_maxilainferior_tamano': TextInput(attrs={'class': 'form-control'}),
+            'examen_tejidos_duros_maxilainferior_hallazgos': TextInput(attrs={'class': 'form-control'}),
+            'examen_tejidos_duros_maxilainferior_alveolares': TextInput(attrs={'class': 'form-control'}),
+            'perfil_concavo': TextInput(attrs={'class': 'form-control'}),
+            'perfil_recto': TextInput(attrs={'class': 'form-control'}),
+            'perfil_convexo': TextInput(attrs={'class': 'form-control'}),
+            'senales_particulares_odontologicas': TextInput(attrs={'class': 'form-control'}),
+            'valoracion_edad': TextInput(attrs={'class': 'form-control'}),
+            'observaciones': TextInput(attrs={'class': 'form-control'}),
+            'examenes_solicitados': TextInput(attrs={'class': 'form-control'}),
+            'analisis_conclusiones': TextInput(attrs={'class': 'form-control'}),
+            'nombre_perito': TextInput(attrs={'class': 'form-control'}),
+            'profesion_perito': TextInput(attrs={'class': 'form-control'}),
+        }
 
 def armar_contexto_base(user):
     if not user.is_authenticated:
@@ -70,17 +112,14 @@ def armar_contexto_base(user):
 def index(request):
     if request.user.is_authenticated:
         context = armar_contexto_base(request.user)
-        if context['tipo_perfil'] != "Odontologo":
-            return render(request,'odontologia/investigador.html',context)
-        else:
-            return render(request,'odontologia/index.html',context)
+        return render(request,'odontologia/index.html',context)
     else:
         return redirect('/usuario')
 
 def registrarPaciente(request):
-    if request.user.is_authenticated:
+    context = armar_contexto_base(request.user)
+    if request.user.is_authenticated and context['tipo_perfil'] == "Odontologo":
         error_message = ""
-        context = armar_contexto_base(request.user)
         q = None
         if 'primer_nombre' in request.POST and 'primer_apellido' in request.POST and 'segundo_apellido' in request.POST and 'n_documento' in request.POST and 'tipo_documento' in request.POST:
             if request.POST['primer_nombre'] != "" and request.POST['primer_apellido'] != "" and request.POST['segundo_apellido'] != "" and request.POST['n_documento'] != "" and request.POST['tipo_documento'] != "": 
@@ -137,7 +176,7 @@ def registrarPaciente(request):
         return redirect('/usuario')
 
 def consultar(request, solo_consultar=False):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and 'tipo_consulta' in request.POST:
         q = None
         error_message = ""
         if not solo_consultar:
@@ -219,19 +258,43 @@ def consultar(request, solo_consultar=False):
         return redirect('/usuario')
 
 def consultar_forense(request):
-    
-    if request.user.is_authenticated:
+    data = {}
+    context = armar_contexto_base(request.user)
+    if request.user.is_authenticated and context['tipo_perfil'] != "Odontologo":
+        ids_pacientes=set()
+        dientes = Dientes.objects.all()
+        for diente in dientes:
+            if str(diente.numero_diente) in request.POST and request.POST[str(diente.numero_diente)] != "":
+                data[diente.numero_diente] = request.POST[str(diente.numero_diente)]
+                diagnosticos = request.POST[str(diente.numero_diente)].split(",")
+                for diagnostico in diagnosticos:
+                    print(diente,diagnostico)
+                    comparacion = (len(ids_pacientes)>0)
+                    tmp = set()
+                    pacientes = PacientesDientes.objects.filter(id_diente=Dientes.objects.get(numero_diente=diente.numero_diente),diagnostico=Codificaciones.objects.get(acronimo=diagnostico))
+                    for p in pacientes:
+                        if not comparacion:
+                            ids_pacientes.add(p.id_paciente.id_paciente)
+                            tmp.add(p.id_paciente.id_paciente)
+                        else:
+                            tmp.add(p.id_paciente.id_paciente)
+
+                    ids_pacientes = set([i for i in ids_pacientes if i in tmp])
+        
+        pacientes = Pacientes.objects.filter(pk__in=ids_pacientes)
+        if len(pacientes) > 0:
+            context['sugerencias'] = pacientes
+        
         form = PeritoForm(request.POST)
         if form.is_valid():
             form.save()
         else:
             form = PeritoForm()
 
-        data = {}
-        context = armar_contexto_base(request.user)
+        print(data)
         context['data'] = data
         context['form'] = form    
-        return render(request,'odontologia/investigador.html',context)
+        return render(request,'odontologia/index.html',context)
     else:
         return redirect('/usuario')
 

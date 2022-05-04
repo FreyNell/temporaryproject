@@ -10,8 +10,10 @@ class SignUpForm(UserCreationForm):
         ("Odontologo", "Odontologo"),
         ("Investigador", "Investigador"),
     )
-    username = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'class': 'myfieldclass'}))
-    tipo_perfil = forms.ChoiceField(choices = GEEKS_CHOICES)
+    username = forms.CharField(label="Usuario",max_length=30,widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label="Contraseña",max_length=30,widget=forms.PasswordInput(attrs={'class': 'form-control','type':'password'}))
+    password2 = forms.CharField(label="Confirmar Contraseña",max_length=30,widget=forms.PasswordInput(attrs={'class': 'form-control','type':'password'}))
+    tipo_perfil = forms.ChoiceField(choices = GEEKS_CHOICES,widget=forms.Select(attrs={'class':'form-select'}))
 
     class Meta:
         model = User
