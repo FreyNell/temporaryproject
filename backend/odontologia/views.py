@@ -176,10 +176,11 @@ def registrarPaciente(request):
         return redirect('/usuario')
 
 def consultar(request, solo_consultar=False):
-    if request.user.is_authenticated and 'tipo_consulta' in request.POST:
+    if request.user.is_authenticated:
         q = None
         error_message = ""
         if not solo_consultar:
+            
             if request.POST['tipo_consulta'] == "1":
                 # Numero documento
                 if 'c_n_documento' in request.POST and request.POST['c_n_documento'] != "" :
@@ -268,7 +269,6 @@ def consultar_forense(request):
                 data[diente.numero_diente] = request.POST[str(diente.numero_diente)]
                 diagnosticos = request.POST[str(diente.numero_diente)].split(",")
                 for diagnostico in diagnosticos:
-                    print(diente,diagnostico)
                     comparacion = (len(ids_pacientes)>0)
                     tmp = set()
                     pacientes = PacientesDientes.objects.filter(id_diente=Dientes.objects.get(numero_diente=diente.numero_diente),diagnostico=Codificaciones.objects.get(acronimo=diagnostico))
@@ -291,7 +291,6 @@ def consultar_forense(request):
         else:
             form = PeritoForm()
 
-        print(data)
         context['data'] = data
         context['form'] = form    
         return render(request,'odontologia/index.html',context)
