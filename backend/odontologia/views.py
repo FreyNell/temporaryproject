@@ -124,7 +124,7 @@ def registrarPaciente(request):
         if 'primer_nombre' in request.POST and 'primer_apellido' in request.POST and 'segundo_apellido' in request.POST and 'n_documento' in request.POST and 'tipo_documento' in request.POST:
             if request.POST['primer_nombre'] != "" and request.POST['primer_apellido'] != "" and request.POST['segundo_apellido'] != "" and request.POST['n_documento'] != "" and request.POST['tipo_documento'] != "": 
                 q,context = consultar(request,solo_consultar=True)
-                
+                print(request.POST)
                 if q == None:
                     q = Pacientes()
                     q.primer_nombre=request.POST['primer_nombre']
@@ -152,7 +152,7 @@ def registrarPaciente(request):
                         id_diente =  Dientes.objects.get(numero_diente=diente.numero_diente)
                         for diagnostico in diagnosticos:
                             print(diagnostico)
-                            id_codificacion = Codificaciones.objects.get(acronimo=diagnostico, tipo_codificacion=TipoCodificacion.objects.all()[0])
+                            id_codificacion = Codificaciones.objects.get(acronimo=diagnostico)
                             try:
                                 paciente = PacientesDientes.objects.get(id_diente=id_diente,diagnostico=id_codificacion,id_paciente=id_paciente)
                             except PacientesDientes.DoesNotExist:
