@@ -47,7 +47,7 @@
 	</div>
 	<hr>
 	<legend>
-		<h3>Diagnóstico Odontológico</h3>
+		<h3>{% if tipo_perfil == "Odontologo" %} Carta Dental {% else %} Consulta por Carta Dental {% endif %}</h3>
 	</legend>
 	<div class="row">
 		<div class="col-md">
@@ -85,7 +85,7 @@
 			</div>
 		</div>
 	</div>
-	<input class="btn btn-primary" type="submit" id="guardar" {% if tipo_perfil != "Odontologo" %} value="Consultar" {% else %} value="Guardar" {% endif %}>
+	<input class="btn btn-primary m-2" type="submit" id="guardar" {% if tipo_perfil != "Odontologo" %} value="Consultar" {% else %} value="Guardar" {% endif %}>
 </form>
 	{% if sugerencias %}
 	<div class="row">
@@ -383,7 +383,7 @@
 					id="id_profesion_perito">
 			</div>
 		</div>
-		<input class="btn btn-secondary" type="submit" value="Guardar Informe">
+		<input class="btn btn-secondary m-2" type="submit" value="Guardar Informe">
 	</form>
 	{% endif %}
 </div>
