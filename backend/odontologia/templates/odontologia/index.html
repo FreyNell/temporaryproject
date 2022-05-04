@@ -142,7 +142,7 @@
 		</form>
 	</div> -->
 	<form method="post">
-		<div class="row">
+		<div class="row border p-2">
 			<div class="col-4">
 				<label for="id_numero_informe_pericial" class="form-label">Numero informe pericial</label><br>
 				<input type="text" name="numero_informe_pericial" class="form-control" required=""
@@ -165,6 +165,9 @@
 				<input type="text" name="autoridad_solicitante" class="form-control" maxlength="30" required=""
 					id="id_autoridad_solicitante">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
 			<div class="col-4">
 				<label for="id_protocolo_necropsia" class="form-label">Protocolo necropsia</label><br>
 				<input type="text" name="protocolo_necropsia" class="form-control" maxlength="200" required=""
@@ -180,6 +183,9 @@
 				<input type="text" name="motivo_peritacion" class="form-control" maxlength="50" required=""
 					id="id_motivo_peritacion">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
 			<div class="col-4">
 				<label for="id_concepto_solicitado" class="form-label">Concepto solicitado</label><br>
 				<input type="text" name="concepto_solicitado" class="form-control" maxlength="100" required=""
@@ -200,48 +206,56 @@
 				<input type="text" name="tecnica_empleada" class="form-control" maxlength="200" required=""
 					id="id_tecnica_empleada">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
+			<legend>Examen Exterior</legend>
 			<div class="col-4">
-				<label for="id_examen_exterior_boca" class="form-label">Examen exterior boca</label><br>
+				<label for="id_examen_exterior_boca" class="form-label">Boca: Labios</label><br>
 				<input type="text" name="examen_exterior_boca" class="form-control" maxlength="200" required=""
 					id="id_examen_exterior_boca">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_exterior_menton" class="form-label">Examen exterior menton</label><br>
+				<label for="id_examen_exterior_menton" class="form-label">Mentón</label><br>
 				<input type="text" name="examen_exterior_menton" class="form-control" maxlength="200" required=""
 					id="id_examen_exterior_menton">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_exterior_peribucal" class="form-label">Examen exterior peribucal</label><br>
+				<label for="id_examen_exterior_peribucal" class="form-label">Región Peribucal</label><br>
 				<input type="text" name="examen_exterior_peribucal" class="form-control" maxlength="200" required=""
 					id="id_examen_exterior_peribucal">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
+			<legend>Examen Interior</legend>
 			<div class="col-4">
-				<label for="id_examen_interior_mucosa" class="form-label">Examen interior mucosa</label><br>
+				<label for="id_examen_interior_mucosa" class="form-label">Mucosa</label><br>
 				<input type="text" name="examen_interior_mucosa" class="form-control" maxlength="200" required=""
 					id="id_examen_interior_mucosa">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_interior_mucogivinal" class="form-label">Examen interior mucogivinal</label><br>
+				<label for="id_examen_interior_mucogivinal" class="form-label">Surco Mucogingival</label><br>
 				<input type="text" name="examen_interior_mucogivinal" class="form-control" maxlength="200" required=""
 					id="id_examen_interior_mucogivinal">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_interior_frenillos" class="form-label">Examen interior frenillos</label><br>
+				<label for="id_examen_interior_frenillos" class="form-label">Frenillos</label><br>
 				<input type="text" name="examen_interior_frenillos" class="form-control" maxlength="200" required=""
 					id="id_examen_interior_frenillos">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_interior_pisoboca" class="form-label">Examen interior pisoboca</label><br>
+				<label for="id_examen_interior_pisoboca" class="form-label">Piso de boca</label><br>
 				<input type="text" name="examen_interior_pisoboca" class="form-control" maxlength="200" required=""
 					id="id_examen_interior_pisoboca">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_interior_paladarduro" class="form-label">Examen interior paladarduro</label><br>
+				<label for="id_examen_interior_paladarduro" class="form-label">Paladar duro</label><br>
 				<input type="text" name="examen_interior_paladarduro" class="form-control" maxlength="200" required=""
 					id="id_examen_interior_paladarduro">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_interior_paladarblando" class="form-label">Examen interior paladarblando</label><br>
+				<label for="id_examen_interior_paladarblando" class="form-label">Paladar Blando</label><br>
 				<input type="text" name="examen_interior_paladarblando" class="form-control" maxlength="200" required=""
 					id="id_examen_interior_paladarblando">
 			</div>
@@ -250,53 +264,57 @@
 				<input type="text" name="zona_retromolar" class="form-control" maxlength="200" required=""
 					id="id_zona_retromolar">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
 			<div class="col-4">
-				<label for="id_examen_tejidos_periodontales" class="form-label">Examen tejidos periodontales</label><br>
+				<label for="id_examen_tejidos_periodontales" class="form-label">Examen de tejidos periodontales</label><br>
 				<input type="text" name="examen_tejidos_periodontales" class="form-control" maxlength="200" required=""
 					id="id_examen_tejidos_periodontales">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
+			<legend>Examen de tejidos duros</legend>
 			<div class="col-4">
-				<label for="id_examen_tejidos_duros_maxilasuperior_forma" class="form-label">Examen tejidos duros maxilasuperior
-					forma</label><br>
+				<label for="id_examen_tejidos_duros_maxilasuperior_forma" class="form-label">Maxilar superior forma</label><br>
 				<input type="text" name="examen_tejidos_duros_maxilasuperior_forma" class="form-control" maxlength="200"
 					required="" id="id_examen_tejidos_duros_maxilasuperior_forma">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_tejidos_duros_maxilasuperior_tamano" class="form-label">Examen tejidos duros
-					maxilasuperior tamano</label><br>
+				<label for="id_examen_tejidos_duros_maxilasuperior_tamano" class="form-label">Maxilar superior tamano</label><br>
 				<input type="text" name="examen_tejidos_duros_maxilasuperior_tamano" class="form-control" maxlength="200"
 					required="" id="id_examen_tejidos_duros_maxilasuperior_tamano">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_tejidos_duros_maxilasuperior_hallazgos" class="form-label">Examen tejidos duros
-					maxilasuperior hallazgos</label><br>
+				<label for="id_examen_tejidos_duros_maxilasuperior_hallazgos" class="form-label">Maxilar Superior hallazgos</label><br>
 				<input type="text" name="examen_tejidos_duros_maxilasuperior_hallazgos" class="form-control" maxlength="200"
 					required="" id="id_examen_tejidos_duros_maxilasuperior_hallazgos">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_tejidos_duros_maxilainferior_forma" class="form-label">Examen tejidos duros maxilainferior
+				<label for="id_examen_tejidos_duros_maxilainferior_forma" class="form-label">Maxilar inferior
 					forma</label><br>
 				<input type="text" name="examen_tejidos_duros_maxilainferior_forma" class="form-control" maxlength="200"
 					required="" id="id_examen_tejidos_duros_maxilainferior_forma">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_tejidos_duros_maxilainferior_tamano" class="form-label">Examen tejidos duros
-					maxilainferior tamano</label><br>
+				<label for="id_examen_tejidos_duros_maxilainferior_tamano" class="form-label">Maxilar inferior tamano</label><br>
 				<input type="text" name="examen_tejidos_duros_maxilainferior_tamano" class="form-control" maxlength="200"
 					required="" id="id_examen_tejidos_duros_maxilainferior_tamano">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_tejidos_duros_maxilainferior_hallazgos" class="form-label">Examen tejidos duros
-					maxilainferior hallazgos</label><br>
+				<label for="id_examen_tejidos_duros_maxilainferior_hallazgos" class="form-label">Maxilar inferior hallazgos</label><br>
 				<input type="text" name="examen_tejidos_duros_maxilainferior_hallazgos" class="form-control" maxlength="200"
 					required="" id="id_examen_tejidos_duros_maxilainferior_hallazgos">
 			</div>
 			<div class="col-4">
-				<label for="id_examen_tejidos_duros_maxilainferior_alveolares" class="form-label">Examen tejidos duros
-					maxilainferior alveolares</label><br>
+				<label for="id_examen_tejidos_duros_maxilainferior_alveolares" class="form-label">Procesos alveolares</label><br>
 				<input type="text" name="examen_tejidos_duros_maxilainferior_alveolares" class="form-control" maxlength="200"
 					required="" id="id_examen_tejidos_duros_maxilainferior_alveolares">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
 			<div class="col-4">
 				<label for="id_perfil_concavo" class="form-label">Perfil concavo</label><br>
 				<input type="text" name="perfil_concavo" class="form-control" maxlength="200" required=""
@@ -311,31 +329,50 @@
 				<input type="text" name="perfil_convexo" class="form-control" maxlength="200" required=""
 					id="id_perfil_convexo">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
 			<div class="col-4">
 				<label for="id_senales_particulares_odontologicas" class="form-label">Senales particulares
 					odontologicas</label><br>
 				<input type="text" name="senales_particulares_odontologicas" class="form-control" maxlength="200" required=""
 					id="id_senales_particulares_odontologicas">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
 			<div class="col-4">
 				<label for="id_valoracion_edad" class="form-label">Valoracion edad</label><br>
 				<input type="text" name="valoracion_edad" class="form-control" maxlength="200" required=""
 					id="id_valoracion_edad">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
 			<div class="col-4">
 				<label for="id_observaciones" class="form-label">Observaciones</label><br>
 				<input type="text" name="observaciones" class="form-control" maxlength="200" required="" id="id_observaciones">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
 			<div class="col-4">
 				<label for="id_examenes_solicitados" class="form-label">Examenes solicitados</label><br>
 				<input type="text" name="examenes_solicitados" class="form-control" maxlength="200" required=""
 					id="id_examenes_solicitados">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
 			<div class="col-4">
-				<label for="id_analisis_conclusiones" class="form-label">Analisis conclusiones</label><br>
+				<label for="id_analisis_conclusiones" class="form-label">Analisis y conclusiones</label><br>
 				<input type="text" name="analisis_conclusiones" class="form-control" maxlength="200" required=""
 					id="id_analisis_conclusiones">
 			</div>
+		</div>
+		<br>
+		<div class="row border p-2">
+			<legend>Información Perito</legend>
 			<div class="col-4">
 				<label for="id_nombre_perito" class="form-label">Nombre perito</label><br>
 				<input type="text" name="nombre_perito" class="form-control" maxlength="200" required="" id="id_nombre_perito">
@@ -346,6 +383,7 @@
 					id="id_profesion_perito">
 			</div>
 		</div>
+		<input class="btn btn-secondary" type="submit" value="Guardar Informe">
 	</form>
 	{% endif %}
 </div>
