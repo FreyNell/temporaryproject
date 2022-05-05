@@ -69,9 +69,9 @@ class PacientesDientes(models.Model):
 
 class InformeForense(models.Model):
     id_informe = models.AutoField(primary_key=True)
-    numero_informe_pericial = models.IntegerField()
+    numero_informe_pericial = models.CharField(max_length=20,default="")
     ciudad = models.CharField(max_length=20,default="")
-    fecha_hora = models.DateTimeField()
+    fecha_hora = models.CharField(max_length=20,default="")
     sexo = models.CharField(max_length=20,default="")
     autoridad_solicitante = models.CharField(max_length=30,default="")
     protocolo_necropsia = models.CharField(max_length=200,default="")
@@ -109,6 +109,7 @@ class InformeForense(models.Model):
     analisis_conclusiones = models.CharField(max_length=200,default="")
     nombre_perito = models.CharField(max_length=200,default="")
     profesion_perito = models.CharField(max_length=200,default="")
+    paciente = models.ForeignKey(Pacientes,on_delete=models.CASCADE)
     
     
 
