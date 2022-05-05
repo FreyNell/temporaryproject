@@ -57,7 +57,7 @@
 				{% for diente_izq in dientes_izquierdos %}
 				<div>
 					<label for="{{diente_izq.numero_diente}}"
-						class="form-label">{{diente_izq.numero_diente}}</label>
+						class="form-label">{{diente_izq.numero_diente}} {% if diente_izq.numero_secundario > 0 %} / {{diente_izq.numero_secundario}} {% endif %}</label>
 					<input type="email" class="form-control" list="datalistOptions" id="{{diente_izq.numero_diente}}"
 						name="{{diente_izq.numero_diente}}" {% if data|get_value:diente_izq.numero_diente != None and data|get_value:diente_izq.numero_diente != ""  %} value="{{data|get_value:diente_izq.numero_diente}}" {% endif %}  multiple>
 				</div>
@@ -74,7 +74,7 @@
 				{% for dientes_der in dientes_derechos %}
 				<div>
 					<label for="{{dientes_der.numero_diente}}"
-						class="form-label">{{dientes_der.numero_diente}}</label>
+						class="form-label">{{dientes_der.numero_diente}} {% if dientes_der.numero_secundario > 0 %} / {{dientes_der.numero_secundario}} {% endif %}</label>
 					<input type="email" class="form-control" list="datalistOptions" name="{{dientes_der.numero_diente}}"
 						id="{{dientes_der.numero_diente}}" {% if data|get_value:dientes_der.numero_diente != None and data|get_value:dientes_der.numero_diente != ""  %} value="{{data|get_value:dientes_der.numero_diente}}" {% endif %} multiple>
 				</div>
