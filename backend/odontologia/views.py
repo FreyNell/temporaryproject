@@ -487,6 +487,16 @@ def rellenarInforme(request):
     try:
         paciente = Pacientes.objects.get(n_documento=request.GET["n_documento"])
         context['sugerencias'] = [paciente]
+        data = {}
+        data_raw = PacientesDientes.objects.all().filter(id_paciente=paciente)
+        if data_raw != None:
+            for dato in data_raw:
+                if dato.id_diente.numero_diente not in data:
+                    data[dato.id_diente.numero_diente] = dato.diagnostico.acronimo
+                else:
+                    data[dato.id_diente.numero_diente] += "," + dato.diagnostico.acronimo
+
+        context['data'] = data
         informe = InformeForense.objects.get(paciente=paciente)
         context['numero_informe_pericial'] = informe.numero_informe_pericial
         context['ciudad'] = informe.ciudad
@@ -528,6 +538,7 @@ def rellenarInforme(request):
         context['analisis_conclusiones'] = informe.analisis_conclusiones
         context['nombre_perito'] = informe.nombre_perito
         context['profesion_perito'] = informe.profesion_perito
+
     except InformeForense.DoesNotExist:
         pass
 
