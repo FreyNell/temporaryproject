@@ -176,6 +176,17 @@ def registrarPaciente(request):
         context['tipo_documento'] = str(q.tipo_documento)
         context['error_message'] = error_message
 
+        data = {}
+        if q != None:
+            data_raw = PacientesDientes.objects.all().filter(id_paciente=q)
+            if data_raw != None:
+                for dato in data_raw:
+                    if dato.id_diente.numero_diente not in data:
+                        data[dato.id_diente.numero_diente] = dato.diagnostico.acronimo
+                    else:
+                        data[dato.id_diente.numero_diente] += "," + dato.diagnostico.acronimo
+
+        context['data'] = data
 
         context['numero_informe_pericial'] = request.POST.get('numero_informe_pericial','')
         context['ciudad'] = request.POST.get('ciudad','')
@@ -469,9 +480,81 @@ def consultar_forense(request,solo_consultar=False):
                     ids_pacientes = set([i for i in ids_pacientes if i in tmp])
         
         pacientes = Pacientes.objects.filter(pk__in=ids_pacientes)
+        if 'observaciones' in request.POST and request.POST['observaciones'] != "":  
+            print(request.POST['observaciones'])
+            informe = InformeForense.objects.filter(observaciones__contains=request.POST['observaciones'])
+            print(informe)
+            pacientes = pacientes.filter(pk__in=[inf.paciente.id_paciente for inf in informe])
+            print(pacientes)
+            context['observaciones'] = request.POST['observaciones']
+
+        if 'n_documento' in request.POST and request.POST['n_documento'] != "":
+            print("HOLA")
+            informe =  InformeForense.objects.get(paciente=Pacientes.objects.get(n_documento=request.POST['n_documento']))
+            informe.nombre_perito = request.POST.get('nombre_perito','')
+            informe.profesion_perito = request.POST.get('profesion_perito','')
+            informe.numero_informe_pericial = request.POST.get('numero_informe_pericial','')
+            informe.ciudad = request.POST.get('ciudad','')
+            informe.fecha_hora = request.POST.get('fecha_hora','')
+            informe.sexo = request.POST.get('sexo','')
+            informe.autoridad_solicitante = request.POST.get('autoridad_solicitante','')
+            informe.protocolo_necropsia = request.POST.get('protocolo_necropsia','')
+            informe.acta_inspeccion_cadaver = request.POST.get('acta_inspeccion_cadaver','')
+            informe.motivo_peritacion = request.POST.get('motivo_peritacion','')
+            informe.concepto_solicitado = request.POST.get('concepto_solicitado','')
+            informe.resumen_hechos = request.POST.get('resumen_hechos','')
+            informe.ejemplos_estudio = request.POST.get('ejemplos_estudio','')
+            informe.tecnica_empleada = request.POST.get('tecnica_empleada','')
+            informe.save()
+
+            context['nombre_perito'] = request.POST.get('nombre_perito','')
+            context['profesion_perito'] = request.POST.get('profesion_perito')
+            context['numero_informe_pericial'] = request.POST.get('numero_informe_pericial','')
+            context['ciudad'] = request.POST.get('ciudad','')
+            context['fecha_hora'] = request.POST.get('fecha_hora','')
+            context['sexo'] = request.POST.get('sexo','')
+            context['autoridad_solicitante'] = request.POST.get('autoridad_solicitante','')
+            context['protocolo_necropsia'] = request.POST.get('protocolo_necropsia','')
+            context['acta_inspeccion_cadaver'] = request.POST.get('acta_inspeccion_cadaver','')
+            context['motivo_peritacion'] = request.POST.get('motivo_peritacion','')
+            context['concepto_solicitado'] = request.POST.get('concepto_solicitado','')
+            context['resumen_hechos'] = request.POST.get('resumen_hechos','')
+            context['ejemplos_estudio'] = request.POST.get('ejemplos_estudio','')
+            context['tecnica_empleada'] = request.POST.get('tecnica_empleada','')
+            context['n_documento'] = request.POST['n_documento']
+            
+
+            context['examen_exterior_boca'] = informe.examen_exterior_boca
+            context['examen_exterior_menton'] = informe.examen_exterior_menton
+            context['examen_exterior_peribucal'] = informe.examen_exterior_peribucal
+            context['examen_interior_mucosa'] = informe.examen_interior_mucosa
+            context['examen_interior_mucogivinal'] = informe.examen_interior_mucogivinal
+            context['examen_interior_frenillos'] = informe.examen_interior_frenillos
+            context['examen_interior_pisoboca'] = informe.examen_interior_pisoboca
+            context['examen_interior_paladarduro'] = informe.examen_interior_paladarduro
+            context['examen_interior_paladarblando'] = informe.examen_interior_paladarblando
+            context['zona_retromolar'] = informe.zona_retromolar
+            context['examen_tejidos_periodontales'] = informe.examen_tejidos_periodontales
+            context['examen_tejidos_duros_maxilasuperior_forma'] = informe.examen_tejidos_duros_maxilasuperior_forma
+            context['examen_tejidos_duros_maxilasuperior_tamano'] = informe.examen_tejidos_duros_maxilasuperior_tamano
+            context['examen_tejidos_duros_maxilasuperior_hallazgos'] = informe.examen_tejidos_duros_maxilasuperior_hallazgos
+            context['examen_tejidos_duros_maxilainferior_forma'] = informe.examen_tejidos_duros_maxilainferior_forma
+            context['examen_tejidos_duros_maxilainferior_tamano'] = informe.examen_tejidos_duros_maxilainferior_tamano
+            context['examen_tejidos_duros_maxilainferior_hallazgos'] = informe.examen_tejidos_duros_maxilainferior_hallazgos
+            context['examen_tejidos_duros_maxilainferior_alveolares'] = informe.examen_tejidos_duros_maxilainferior_alveolares
+            context['perfil_concavo'] = informe.perfil_concavo
+            context['perfil_recto'] = informe.perfil_recto
+            context['perfil_convexo'] = informe.perfil_convexo
+            context['senales_particulares_odontologicas'] = informe.senales_particulares_odontologicas
+            context['valoracion_edad'] = informe.valoracion_edad
+            context['examenes_solicitados'] = informe.examenes_solicitados
+            context['analisis_conclusiones'] = informe.analisis_conclusiones
+
+
+
+
         if len(pacientes) > 0:
             context['sugerencias'] = pacientes
-
 
         context['data'] = data
         if solo_consultar:
@@ -538,12 +621,15 @@ def rellenarInforme(request):
         context['analisis_conclusiones'] = informe.analisis_conclusiones
         context['nombre_perito'] = informe.nombre_perito
         context['profesion_perito'] = informe.profesion_perito
+        context['n_documento'] = request.GET["n_documento"]
 
     except InformeForense.DoesNotExist:
         pass
 
     return render(request,'odontologia/index.html',context)
     
+
+
 
 @register.filter
 def get_value(dictionary, key):

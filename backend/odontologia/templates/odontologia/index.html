@@ -85,6 +85,18 @@
 				</datalist>
 				{% endfor %}
 			</div>
+			<br>
+			<div class="row border p-2">
+				<div class="col-4">
+					<label for="id_observaciones" class="form-label">Observaciones</label><br>
+					<input type="email"  list="detallesobservaciones" name="observaciones" class="form-control" maxlength="200" required="" id="id_observaciones" value="{{observaciones}}" multiple>
+					<datalist id="detallesobservaciones">
+						{% for codificacion2 in codificaciones2 %}
+						<option value="{{codificacion2.acronimo}}">
+						{% endfor %}
+					</datalist>
+				</div>
+			</div>
 		</div>
 	</div>
 	{% if tipo_perfil != "Odontologo" %}
@@ -125,6 +137,7 @@
 		
 	</div>
 	{% endif %}
+		{% if tipo_perfil == "Investigador" %}
 		<div class="row border p-2">
 			<div class="col-4">
 				<label for="id_numero_informe_pericial" class="form-label">Numero informe pericial</label><br>
@@ -190,6 +203,7 @@
 					id="id_tecnica_empleada" value="{{tecnica_empleada}}">
 			</div>
 		</div>
+		{% endif %}
 		<br>
 		<div class="row border p-2">
 			<legend>Examen Exterior</legend>
@@ -333,18 +347,6 @@
 		<br>
 		<div class="row border p-2">
 			<div class="col-4">
-				<label for="id_observaciones" class="form-label">Observaciones</label><br>
-				<input type="email"  list="detallesobservaciones" name="observaciones" class="form-control" maxlength="200" required="" id="id_observaciones" value="{{observaciones}}" multiple>
-				<datalist id="detallesobservaciones">
-					{% for codificacion2 in codificaciones2 %}
-					<option value="{{codificacion2.acronimo}}">
-					{% endfor %}
-				</datalist>
-			</div>
-		</div>
-		<br>
-		<div class="row border p-2">
-			<div class="col-4">
 				<label for="id_examenes_solicitados" class="form-label">Examenes solicitados</label><br>
 				<input type="text" name="examenes_solicitados" class="form-control" maxlength="200" required=""
 					id="id_examenes_solicitados" value="{{examenes_solicitados}}">
@@ -359,6 +361,7 @@
 			</div>
 		</div>
 		<br>
+		{% if tipo_perfil == "Investigador" %}
 		<div class="row border p-2">
 			<legend>Información Perito</legend>
 			<div class="col-4">
@@ -370,10 +373,16 @@
 				<input type="text" name="profesion_perito" class="form-control" maxlength="200" required=""
 					id="id_profesion_perito" value="{{profesion_perito}}">
 			</div>
+			<br>
+			<div class="col-4">
+				<label>Numero documento paciente seleccionado.</label>
+				<input type="text" name="n_documento" class="form-control" maxlength="200" required=""
+					id="n_documento" value="{{n_documento}}" readonly="readonly">
+			</div>
+			
 		</div>
-		{% if tipo_perfil == "Odontologo" %}
-		<input class="btn btn-secondary m-2" type="submit" value="Guardar Informe">
 		{% endif %}
+		<input class="btn btn-secondary m-2" type="submit" value="Guardar Informe">
 	</form>
 </div>
 {% endblock %}
